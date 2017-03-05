@@ -1,7 +1,6 @@
 window.onload = function() {
 
 	var textbox = document.getElementById("chatRes");
-	console.log(textbox);
 
 	// Enter to submit
 	textbox.addEventListener("keypress", function(event){
