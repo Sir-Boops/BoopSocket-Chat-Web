@@ -1,24 +1,36 @@
-var ws = new WebSocket('ws://[::1]:7777');
+var ws;
 
-window.onload = function() {
+start();
 
-	var textbox = document.getElementById("chatRes");
-	console.log(textbox);
+function start() {
+	ws = new WebSocket('ws://[::1]:7777');
 
-	// Enter to submit
-	textbox.addEventListener("keypress", function(event){
-        	if (event.keyCode == 13) {
-                	document.getElementById("submit").click();
-        	}
-	});
-};
+	ws.onmessage = function(event){
 
-ws.onmessage = function(event){
-
-	// Append these messages to the chat box
+		// Append these messages to the chat box
 		var chatBox = document.getElementById('chat');
 		chatBox.innerHTML = (chatBox.innerHTML + ('<p>' + event.data + '</p>'));
 	};
+
+	ws.onclose = function(event) {
+
+		// Append these messages to the chat box
+		var chatBox = document.getElementById('chat');
+		chatBox.innerHTML = (chatBox.innerHTML + ('<p style="color: red;">Connection Closed</p>'));
+
+		//Try to reconnect
+		setTimeout(function(){
+			start();
+		}, (5 * 1000));
+	};
+
+	ws.onopen = function(event) {
+		// Append these messages to the chat box
+		var chatBox = document.getElementById('chat');
+		chatBox.innerHTML = (chatBox.innerHTML + ('<p style="color: green;">Connected</p>'));
+	};
+
+};
 
 // On text submission
 function sendRes() {
