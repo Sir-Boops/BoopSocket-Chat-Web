@@ -26,7 +26,7 @@ function start() {
 
 		// Append these messages to the chat box
 		var chatBox = document.getElementById('chat');
-		chatBox.innerHTML = (chatBox.innerHTML + ('<p style="color: red;">Connection Closed</p>'));
+		chatBox.innerHTML = (chatBox.innerHTML + ('<p style="color: red;">Connection Lost</p>'));
 
 		// Scroll to the bottom of the div
 		var scroll = document.getElementById('chat');
